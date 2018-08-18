@@ -1,0 +1,36 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<h1><i class="fas fa-terminal"></i> Dashboard <small>Welcome {{session.username}}</small></h1>
+<hr>
+<div class="row">
+    <div class='col-xs-12 col-sm-6 col-md-4 dashboard-feature'>
+        <a class='company-url' href="/dashboard/users">
+            <div class="card mb-4 box-shadow center-text">
+                <i class="far fa-address-book dashboard-icon"></i> 
+                <p class="card-text dashboard-text">View users</p>
+            </div>
+        </a>
+    </div>
+    <div class='col-xs-12 col-sm-6 col-md-4 dashboard-feature'>
+        <a class='company-url' href="/dashboard/companies">
+            <div class="card mb-4 box-shadow center-text">
+                <i class="fas fa-list-ul dashboard-icon"></i> 
+                <p class="card-text dashboard-text">Manage companies</p>
+            </div>
+        </a>
+    </div>
+    {# 
+    <div class='col-xs-12 col-sm-6 col-md-4 dashboard-feature'>
+        <a class='company-url' href="/dashboard/companies">
+            <div class="card mb-4 box-shadow center-text">
+                <i class="far fa-edit dashboard-icon"></i> 
+                <p class="card-text dashboard-text">Manage companies</p>
+            </div>
+        </a>
+    </div>
+    #}
+</div>
+    
+
+{% endblock %}

@@ -1,0 +1,328 @@
+.navbar {
+    margin-bottom: 2rem;
+}
+
+.navbar-brand {
+    padding-right: 16px;
+    padding-bottom: 0;
+    padding-top: 0;
+    border-right: 1px solid #808080d9;
+    font-size: 1.5rem;
+    font-weight: 200;
+}
+
+.bg-purple {
+    background: #8E2DE2;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #8E2DE2,#a51111);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #8E2DE2,#a51111); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+body {
+    margin-top: 5.5rem;
+}
+
+.jumbotron {
+    width: 100%;
+    color: #eee;
+}
+
+h1.title {
+    font-size: 3rem;
+}
+
+.center-text {
+    padding-top: 1.5rem;
+    text-align: center;
+}
+.scrollable-menu {
+    height: auto;
+    max-height: 220px;
+    overflow-x: hidden;
+}
+
+a.capitalize {
+    text-transform: capitalize;
+}
+
+button.dropdown-toggle {
+    background: #8E2DE2;
+    margin-bottom: 2rem;
+}
+
+div.drop-title {
+    display: block;
+}
+
+div.editor-picks {
+    display: block;
+    text-align: center;
+    padding-top: 0.5rem;
+}
+
+div.editors-bg {
+    background-color: rgba(144, 75, 224, 0.25);
+    padding: 0px 24px;
+    margin-bottom: 1.5rem;
+}
+
+hr.editors-hr {
+    margin-bottom: 30px;
+    border-top: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+a.dashboard-feature:hover {
+    text-decoration: none;
+}
+
+a.company-url {
+    /* margin-top: 1.5rem; */
+    display:block;
+}
+
+div.dashboard-feature {
+    padding-top: 1.5rem;
+}
+
+i.dashboard-icon {
+    font-size: 5rem;
+    margin-top: 1.5rem;
+}
+
+p.dashboard-text {
+    vertical-align: middle;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+}
+.thumbnail {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+}
+
+.thumbnail img {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    height: 100%;
+    width: auto;
+    -webkit-transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+}
+
+.industry {
+    background-color: #dddddd;
+    font-size: 0.8rem;
+    padding: 0.1rem 0.3rem;
+    border-radius: 0.5rem;
+    vertical-align: middle;
+    color: #797979;
+    text-decoration: none;
+}
+
+.industry:hover {
+    text-decoration: none;
+    color: inherit;
+}
+
+.card {
+    box-shadow: 
+        0 15px 35px rgba(50,50,93,.1), 
+        0 5px 15px rgba(0,0,0,.07);
+    border: none;
+}
+
+.company-url {
+    text-decoration: none;
+    color: black;
+    cursor: default;
+}
+
+.company-url:hover {
+    text-decoration: none;
+}
+
+.mb-4 {
+    border-radius: 0px 0px 5px 5px;
+}
+
+/* Dropdowns for expanding cards */
+input[type="checkbox"].arrow {
+    display:none;
+}
+
+.icon {
+    color: #eee;
+    margin-top:10px;
+    text-align: center;
+    cursor:pointer;
+    border-radius: 0 0 5px 5px;
+    margin-bottom: 0;
+}
+
+.icon:after {
+    content:'\f107 ';  
+}
+
+input:checked ~ .icon:after {
+    content:"\f106 ";  
+}
+
+.card-body {
+    min-height: 120px;
+    max-height: 120px;
+    overflow:hidden;
+    transition:all .3s ease;
+}
+
+input:checked + .inner {
+    max-height: 500px;
+}
+/* ================= */
+
+div.container#search-cont {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+input#search {
+    background-image: url('../icons/searchicon.png'); /* Add a search icon to input */
+    background-position: 10px 12px; /* Position the search icon */
+    background-repeat: no-repeat; /* Do not repeat the icon image */
+    width: 89%; /* full-width */
+    padding: 12px 20px 12px 40px; /* Add some padding */
+    border: 1px solid #ddd; /* Add a grey border */
+    margin-bottom: 12px; /* Add some space below the input */
+}
+
+#dl-button {
+    padding-top: 9px;
+    padding-bottom: 12px;
+    /* width: auto; */
+    float: right;
+}
+
+tr.hover>th {
+    cursor: pointer;
+}
+
+/* Image hover learn more */
+.image {
+    opacity: 1;
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: .5s ease;
+    backface-visibility: hidden;
+}
+
+.middle {
+    transition: .3s ease;
+    width:100%;
+    height:100%;
+    opacity: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    top: 0;
+    left: 0;
+    text-align: center;
+    cursor: -webkit-grab;
+}
+
+.middle:active {
+    cursor: -webkit-grabbing;
+}
+
+.thumbnail:hover .image {
+    opacity: 0.3;
+}
+
+.thumbnail:hover .middle {
+    opacity: 1;
+}
+
+/* ====== */
+/* MODAL */
+/* ====== */
+
+/* The Modal (background) */
+.myModal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-bottom: 20px; /* Location of the box */
+    right: 0;
+    bottom: 0;
+    overflow: auto; /* Enable scroll if needed */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+/* ====== */
+/* ====== */
+
+.text {
+    border-radius: 0.3rem;
+    background-color: #ABA084;
+    width: 50%;
+    color: white;
+    font-size: 1rem;
+    padding: 1rem 2rem;
+    vertical-align: center;
+    text-align: center;
+    word-wrap: normal;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+}
+/* ================= */
+
+/* Set card heights to max on mobile */
+@media only screen and (max-width: 575px){
+    .card-body {
+        max-height: 500px;
+    }
+
+    input[type="checkbox"] {
+        display: none;
+    }
+
+    .icon:before {
+        content: '';
+    }
+    
+    .icon:after {
+        content: '';
+    }
+
+}
+
+@media only screen and (max-width: 766px) {
+    .navbar-brand {
+        border: none;
+    }
+}

@@ -1,0 +1,133 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<h1><i class="fas fa-edit"></i> Companies <small>Welcome {{session.username}}</small></h1>
+<hr>
+
+<div class="container" id="search-cont">
+    <input type="text" id="search" onkeyup="search()" placeholder="Search for companies/industries/clicks...">
+    <a href="/dashboard/companies/download" class="btn btn-outline-primary" id="dl-button">Download</a>
+</div>
+
+<table class='table table-striped' id='Companies'>
+    <tr class='hover'>
+        <th onclick='sortTable(0, true)'>ID</th>
+        <th onclick='sortTable(1, false)'>Title</th>
+        <th onclick='sortTable(2, false)'>Industry</th>
+        <th onclick='sortTable(3, false)'>Link</th>
+        <th onclick='sortTable(4, true)'>Starred</th>
+        <th onclick='sortTable(5, true)'>Clicks</th>
+    </tr>
+    {% for cpy in companies %}
+    <tr>
+        <td>{{cpy.id}}</td>
+        <td>{{cpy.title}}</td>
+        <td>{{cpy.industry}}</td>
+        <td><a href="{{cpy.url}}">{{cpy.url}}</a></td>
+        <td>
+        {% if cpy.starred %}
+            <input type="checkbox" style="display: inline-block" name="" value="" checked>
+            {% else %}
+            <input type="checkbox" style="display: inline-block" name="" value="">
+        {% endif %}</td>
+        <td>{{cpy.clicks}}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<script>
+    function search() {
+        // Declare variables 
+        var input, filter, table, tr, td, i;
+        input = document.getElementById("search");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("Companies");
+        tr = table.getElementsByTagName("tr");
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            tdt = tr[i].getElementsByTagName("td")[1];
+            tdi = tr[i].getElementsByTagName("td")[2];
+            tdc = tr[i].getElementsByTagName("td")[5];
+            if (tdt || tdi || tdc) {
+                if (tdt.innerHTML.toUpperCase().indexOf(filter) > -1 || tdi.innerHTML.toUpperCase().indexOf(filter) > -1  || tdc.innerHTML.toUpperCase().indexOf(filter) > -1 ) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            } 
+        }
+    }
+
+    function sortTable(n, number) {
+        var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+        table = document.getElementById("Companies");
+        switching = true;
+        // Set the sorting direction to ascending:
+        dir = "asc";
+        /* Make a loop that will continue until
+        no switching has been done: */
+        while (switching) {
+            // Start by saying: no switching is done:
+            switching = false;
+            rows = table.getElementsByTagName("TR");
+            /* Loop through all table rows (except the
+            first, which contains table headers): */
+            for (i = 1; i < (rows.length - 1); i++) {
+                // Start by saying there should be no switching:
+                shouldSwitch = false;
+                /* Get the two elements you want to compare,
+                one from current row and one from the next: */
+                x = rows[i].getElementsByTagName("TD")[n];
+                y = rows[i + 1].getElementsByTagName("TD")[n];
+                /* Check if the two rows should switch place,
+                based on the direction, asc or desc: */
+                if (number) {
+                    if (dir == "asc") {
+                        if (Number(x.innerHTML) > Number(y.innerHTML)) {
+                            shouldSwitch = true;
+                            break;
+                        }
+                    } else if (dir == "desc") {
+                        if (Number(x.innerHTML) < Number(y.innerHTML)) {
+                            shouldSwitch = true;
+                            break;
+                        }
+                    }
+                } else {
+                    if (dir == "asc") {
+                        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                            // If so, mark as a switch and break the loop:
+                            shouldSwitch = true;
+                            break;
+                        }
+                    } else if (dir == "desc") {
+                        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                            // If so, mark as a switch and break the loop:
+                            shouldSwitch = true;
+                            break;
+                        }
+                    }
+                }
+            }
+            if (shouldSwitch) {
+                /* If a switch has been marked, make the switch
+                and mark that a switch has been done: */
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+                // Each time a switch is done, increase this count by 1:
+                switchcount ++; 
+            } else {
+                /* If no switching has been done AND the direction is "asc",
+                set the direction to "desc" and run the while loop again. */
+                if (switchcount == 0 && dir == "asc") {
+                    dir = "desc";
+                    switching = true;
+                }
+            }
+        }
+    }
+</script>
+{% endblock %}
+
+

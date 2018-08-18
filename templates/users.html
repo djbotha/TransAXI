@@ -1,0 +1,27 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+    <h1><i class="far fa-address-book"></i> Users <small>Welcome {{session.username}}</small></h1>
+    <hr>
+
+    <div class="container" id="search-cont">
+        <a href="/dashboard/users/email" class="btn btn-outline-primary" id="dl-button" style="margin-bottom: 1rem;">Email</a>
+    </div>
+
+    <table class='table table-striped'>
+        <tr>
+            <th>ID</th>
+            <th>Email</th>
+            <th>Register Date</th>
+        </tr>
+            {% for user in users %}
+                <tr>
+                    <td>{{user.id}}</td>
+                    <td><a href="mailto:{{user.email}}">{{user.email}}</a></td>
+                    <td>{{user.register_date}}</td>
+                </tr>
+            {% endfor %}
+    </table>
+{% endblock %}
+
+

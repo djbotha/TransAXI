@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<div class="jumbotron text-center card bg-purple">
+        <h1>Contact <small>- send us an email</small></h1>
+</div>
+
+<div class="col-sm-6">
+    <h2>Connect with us</h2>    
+    <p>For support or any questions, email us at:</p>
+    <a href="mailto:info@glaze.co.za" target="_blank">info@glaze.co.za</a>
+</div>
+
+<div class="col-sm-6">
+
+</div>
+
+<script>
+    window.onload = function() {
+        document.getElementById('contact').className = 'nav-link active';
+    };
+</script>
+{% endblock %}
