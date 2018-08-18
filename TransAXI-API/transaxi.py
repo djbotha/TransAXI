@@ -43,38 +43,12 @@ def dated_url_for(endpoint, **values):
 
 @app.route('/users/<string:id>', methods=['GET'])
 def users(id):
-    # for usr in Users:
-    #     name = usr['name']
-    #     email = usr['email']
-    #     password = usr['password']
-    #     wallet_id = usr['wallet_id']
-    #     role = usr['role']
-
-    #     cur = mysql.connection.cursor()
-    #     cur.execute('INSERT INTO users(name, email, password, wallet_id, role) VALUES(%s, %s, %s, %s, %s)', (name, email, password, wallet_id, role))
-
-    #     mysql.connection.commit()
-    #     cur.close()
-
     # for wlt in Wallets:
     #     user_id = wlt['user_id']
     #     amount = wlt['amount']
 
     #     cur = mysql.connection.cursor()
     #     cur.execute('INSERT INTO wallets(user_id, amount) VALUES(%s, %s)', (user_id, amount))
-
-    #     mysql.connection.commit()
-    #     cur.close()
-    # for trns in Transactions:
-    #     user_from = trns['user_from']
-    #     user_to = trns['user_to']
-    #     amount = trns['amount']
-
-    #     cur = mysql.connection.cursor()
-    #     cur.execute('INSERT INTO transactions(user_from, user_to, amount) VALUES(%s, %s, %s)', (user_from, user_to, amount))
-
-    #     mysql.connection.commit()
-    #     cur.close()
 
     # Create cursor
     cur = mysql.connection.cursor()
@@ -91,21 +65,59 @@ def wallets(id):
     cur = mysql.connection.cursor()
 
     # Get user by username
-    result = cur.execute('SELECT * from wallets WHERE id=%s', (id,))
+    result = cur.execute('SELECT * from wallets WHERE user_id=%s', (id,))
 
-    data = cur.fetchall()
+    data = cur.fetchone()
     return jsonify(data)
     
 @app.route('/transact', methods=['GET', 'POST'])
 def transact():
-    if request.method == 'GET':
+    if request.method == 'POST':
+        id = request.args.get('from', type=int)
         # Create cursor
         cur = mysql.connection.cursor()
 
         # Get user by username
         result = cur.execute('SELECT users.id, users.name, wallets.amount from users INNER JOIN wallets on users.wallet_id=wallets.id WHERE users.id=%s', (id,))
 
-        data = cur.fetchall()
+        data = cur.fetchone()
+        return jsonify(data)
+    else:
+        user_from = request.args.get('from', type=int)
+        user_to = request.args.get('driver', type=int)
+        amount = request.args.get('amount', type=float)
+        
+
+        # Create cursor
+        cur = mysql.connection.cursor()
+        # Get user by username
+        cur.execute('UPDATE wallets SET amount=amount-%s WHERE id=%s', (amount,user_from))
+        cur.execute('UPDATE wallets SET amount=amount+%s WHERE id=%s', (amount,user_to))
+        cur.execute('INSERT INTO transactions(user_from, user_to, amount) VALUES(%s, %s, %s)', (user_from, user_to, amount))
+        mysql.connection.commit()
+
+        cur.close()
+
+        return jsonify(status="success")
+
+@app.route('/driver')
+def driver():
+    # Create cursor
+    cur = mysql.connection.cursor()
+
+    # Get user by username
+    result = cur.execute('SELECT users.name, transactions.amount, transactions.date FROM users INNER JOIN transactions ON users.id=transactions.user_from WHERE transactions.user_to=%s ORDER BY transactions.date DESC', (4,))
+
+    data = cur.fetchall()
+    return jsonify(data)
+    
+# commuter climbs into taxi (already logged in) 
+# commuter enters taxi driver id and amount -> process request 
+#     process request:    
+#         subtract money from commuter
+#         adds money to driver
+#         return 
+# taxi confirms that money is received 
         
 # class RegisterForm(Form):
 #     name = StringField('Name', [validators.Length(min=1, max=50)])
