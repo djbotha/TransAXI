@@ -1,7 +1,6 @@
 .DS_Store
 *.pyc
 *.pem
-*.sql
 *.out
 env/
 glazeenv/
