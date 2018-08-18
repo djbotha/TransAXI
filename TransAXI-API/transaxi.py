@@ -100,16 +100,21 @@ def transact():
 
         return jsonify(status="success")
 
-@app.route('/driver')
-def driver():
+@app.route('/driver/<string:id>')
+def driver(id):
+    cur = mysql.connection.cursor()
+    result = cur.execute('SELECT name FROM users WHERE id=%s', (id,))
+    name = cur.fetchone()
+    name = name['name'].split()[0]
     # Create cursor
     cur = mysql.connection.cursor()
 
     # Get user by username
-    result = cur.execute('SELECT transactions.id, users.name, transactions.amount, transactions.date FROM users INNER JOIN transactions ON users.id=transactions.user_from WHERE transactions.user_to=%s ORDER BY transactions.date DESC', (4,))
+    result = cur.execute('SELECT transactions.id, users.name, transactions.amount, transactions.date FROM users INNER JOIN transactions ON users.id=transactions.user_from WHERE transactions.user_to=%s ORDER BY transactions.date DESC', (id,))
 
     data = cur.fetchall()
-    return render_template('companies.html', data=data)
+
+    return render_template('companies.html', name=name, data=data)
     
 # commuter climbs into taxi (already logged in) 
 # commuter enters taxi driver id and amount -> process request 
