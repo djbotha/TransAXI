@@ -106,10 +106,10 @@ def driver():
     cur = mysql.connection.cursor()
 
     # Get user by username
-    result = cur.execute('SELECT users.name, transactions.amount, transactions.date FROM users INNER JOIN transactions ON users.id=transactions.user_from WHERE transactions.user_to=%s ORDER BY transactions.date DESC', (4,))
+    result = cur.execute('SELECT transactions.id, users.name, transactions.amount, transactions.date FROM users INNER JOIN transactions ON users.id=transactions.user_from WHERE transactions.user_to=%s ORDER BY transactions.date DESC', (4,))
 
     data = cur.fetchall()
-    return jsonify(data)
+    return render_template('companies.html', data=data)
     
 # commuter climbs into taxi (already logged in) 
 # commuter enters taxi driver id and amount -> process request 
