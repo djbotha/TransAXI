@@ -13,7 +13,7 @@ app = Flask(__name__)
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = ''
-app.config['MYSQL_DB'] = 'fintechathon'
+app.config['MYSQL_DB'] = 'transaxi'
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 
 app.secret_key = os.urandom(16)
@@ -82,7 +82,7 @@ def users(id):
     # Get user by username
     result = cur.execute('SELECT * from users WHERE id=%s', (id,))
 
-    data = cur.fetchall()
+    data = cur.fetchone()
     return jsonify(data)
 
 @app.route('/wallets/<string:id>', methods=['GET'])
@@ -297,5 +297,5 @@ def transact():
 #     return redirect('https://mail.google.com/mail/u/0/?view=cm&fs=1&to=' + mailto + '&tf=1')
 
 if __name__ == '__main__':
-    app.run(debug=True)
-    # app.run(host="0.0.0.0", port='5000')
+    #app.run(debug=True)
+    app.run(host="0.0.0.0", port="80")
